@@ -10,3 +10,4 @@ dependencies:
     - nglview
     - pandas
     - seaborn
+    - jupyter
