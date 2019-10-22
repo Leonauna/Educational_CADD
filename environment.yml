@@ -1,9 +1,10 @@
-name: 
+name: CADD
 channels:
   - conda-forge
 dependencies:
   - python=3.7
   - rdkit
+  - pip
   - pip:
     - numpy
     - nglview
