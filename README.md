@@ -9,10 +9,13 @@ The easist way to setup an environment for this project is to use conda
 To activate the environment  
 `conda activate CADD` 
 
-This project was coded during the Life Science Hackathon 2019 in London. 
-Contributers are:
-Jonathan Ish-Horowicz
-Tony Yang
-Daniel Jiang 
-Léonie Strömich
+This project was coded during the Life Science Hackathon 2019 in London. <br>
+Contributers are:<br>
+
+[Jonathan Ish-Horowicz](hhttps://github.com/jonathanishhorowicz)
+[Daniel Jiang](https://github.com/WizardOfAus)
+[Léonie Strömich](https://github.com/Leonauna)
+[Tony Yang](https://github.com/tonyyzy)
+
+
  
