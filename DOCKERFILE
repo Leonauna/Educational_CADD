@@ -1,0 +1,7 @@
+FROM continuumio/miniconda3
+
+RUN cd /
+RUN git clone https://github.com/Leonauna/Educational_CADD
+RUN conda env create -f /Educational_CADD/environment.yml
+RUN echo "source activate CADD" > ~/.bashrc
+ENV PATH /opt/conda/envs/CADD/bin:$PATH
