@@ -52,14 +52,14 @@ def Xyfromdf(df, return_y):
     structures. The structures are encoded using their Morgan fingerprint.
 
     Args:
-        df: Pandas DataFrame with columns "CMPD_CHEMBLID", "STANDARD_VALUE", "CANONICAL_SMILES"
+        df: a Pandas DataFrame with columns "Compound ID", "Structure", "IC50"
         return_y: whether or not to return labels y.
 
     Returns:
         2-tuple (X,y) where X is a dataframe and y is a series if return_y is True. Otherwise just X
     """
     # generate fingeprints: Morgan fingerprint with radius 2
-	fps = [AllChem.GetMorganFingerprintAsBitVect(Chem.MolFromSmiles(smile), 2) for smile in df["CANONICAL_SMILES"]]
+	fps = [AllChem.GetMorganFingerprintAsBitVect(Chem.MolFromSmiles(smile), 2) for smile in df["Structure"]]
 
 	# convert the RDKit explicit vectors into numpy arrays
 	np_fps = [np.zeros((1,)) for fp in fps]
@@ -67,7 +67,7 @@ def Xyfromdf(df, return_y):
 	    DataStructs.ConvertToNumpyArray(fp, np_fps[i])
 	X = pd.DataFrame(np.array(np_fps))
 	if return_y:
-		y = np.log(df["STANDARD_VALUE"])
+		y = np.log(df["IC50"])
 		assert y.isna().sum()==0
 		return X, y
 	else:
@@ -77,14 +77,14 @@ def clean_data(df):
     """Remove missing values and duplicate CHEMBL IDs from a dataframe.
 
     Args:
-        df: Pandas DataFrame with columns "CMPD_CHEMBLID", "STANDARD_VALUE", "CANONICAL_SMILES"
+        df: a Pandas DataFrame with columns "Compound ID", "Structure", "IC50"
 
     Returns:
         The cleaned dataframe
     """
 	#df = pd.read_csv("Data/training_data_raw.csv")
 	df = df.dropna() # Remove missing values
-	df = df.drop_duplicates(subset=["CMPD_CHEMBLID"])
+	df = df.drop_duplicates(subset=["Compound ID"])
 
 	assert np.all([v==0 for k, v in {name : df[name].isna().sum() for name in df.columns}.items()])
 
@@ -100,7 +100,7 @@ def train_random_forest(
     structure (encoded using Morgan fingerprints) 
 
     Args:
-        training_data: a Pandas DataFrame with columns "CMPD_CHEMBLID", "STANDARD_VALUE", "CANONICAL_SMILES"
+        training_data: a Pandas DataFrame with columns "Compound ID", "Structure", "IC50"
         seed: the seed for the pseudo-random number generator
         n_search_iter: the number of models in the random search cross-validation
         k: the number of folds in the cross-validation
@@ -135,7 +135,7 @@ def predict_affinity(
 
     Args:
         random_forest: the random forest model
-        test_data: a dataframe with columns "CMPD_CHEMBLID", "CANONICAL_SMILES"
+        test_data: a dataframe with columns "Compound ID", "Structure"
 
     Returns:
         A dataframe with columns "CMPD_CHEMBLID", CANONICAL_SMILES", "predicted_affinity", where
@@ -143,6 +143,6 @@ def predict_affinity(
     """
     
 	X = Xyfromdf(test_data, False)
-	test_data["predicted_affinity"] = np.exp(random_forest.predict(X))
-	return test_data.sort_values(by="predicted_affinity", ascending=True)
+	test_data["Predicted IC50"] = np.exp(random_forest.predict(X))
+	return test_data.sort_values(by="Predicted IC50", ascending=True)
 
