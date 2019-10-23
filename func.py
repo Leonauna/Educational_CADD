@@ -8,8 +8,7 @@ import nglview as nv
 import pandas as pd
 import numpy as np
 from sklearn.ensemble import RandomForestRegressor
-from sklearn.model_selection import RandomizedSearchCV, train_test_split
-from sklearn.metrics import r2_score
+from sklearn.model_selection import RandomizedSearchCV
 from rdkit import DataStructs
 import multiprocessing
 
@@ -82,18 +81,19 @@ def clean_data(df):
     Returns:
         The cleaned dataframe
     """
+    print("Cleaning data...", end="")
     df = df.dropna() # Remove missing values
     df = df.drop_duplicates(subset=["Compound ID"])
 
     assert np.all([v==0 for k, v in {name : df[name].isna().sum() for name in df.columns}.items()])
-
+    print("done!")
     return df
 
 def train_random_forest(
     training_data,
     seed=123,
-    n_search_iter=10,
-    k=4,
+    n_search_iter=3,
+    k=2,
     n_jobs=multiprocessing.cpu_count()-1):
     """Train a random forest regression model on training data. The model predicts log(IC50) from smiley
     structure (encoded using Morgan fingerprints).
@@ -108,6 +108,7 @@ def train_random_forest(
     Returns:
         The best performing random forest regression model according to the cross-validation.
     """
+    print("Training random forest...", end="")
     np.random.seed(seed)
     X, y = Xyfromdf(training_data, True)
 
@@ -124,7 +125,7 @@ def train_random_forest(
         n_jobs=n_jobs,
         verbose=0
     ).fit(X, y)
-
+    print("done!")
     return rf.best_estimator_
 
 def predict_ic50(
@@ -140,8 +141,9 @@ def predict_ic50(
         A dataframe with columns "CMPD_CHEMBLID", CANONICAL_SMILES", "predicted_affinity", where
         "predicted_affinity" is the random forest prediction of the raw IC50 value
     """
-    
+    print("Predicting IC50 values using random forest...", end="")
     X = Xyfromdf(test_data, False)
     test_data["Predicted IC50"] = np.exp(random_forest.predict(X))
+    print("done!")
     return test_data.sort_values(by="Predicted IC50", ascending=True)
 
