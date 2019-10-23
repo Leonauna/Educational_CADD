@@ -6,6 +6,8 @@ An educational tutorial to showcase Computer Aided Drug Discovery (CADD) in the 
 
 Our tutorial runs through an example of the protein estrogen receptor (1G50) which has a correlated link to breast cancer. Using a data subset from the ZINC15 database, we apply a random forest classifier to predict the effectiveness of a molecular footprint as a promising drug target.
 
+### [Click here for presentation](https://leonauna.github.io/Educational_CADD/)
+
 # Set up environment
 
 ## Setup locally
