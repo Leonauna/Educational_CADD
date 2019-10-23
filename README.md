@@ -1,18 +1,25 @@
 [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/Leonauna/Educational_CADD/master)
 
-# Educational_CADD
-Educational tool to bring Computer Aided Drug Design to the class room. 
+# Educational CADD Tutorial
+An educational tutorial to showcase Computer Aided Drug Discovery (CADD) in the classroom. The interactive Jupyter Notebooks are designed for teaching purposes and lead the user through a simplifed virtual molecular compound screening pipeline.
+
+Our tutorial runs through an example of the protein estrogen receptor (1G50) which has a correlated link to breast cancer. Using a data subset from the ZINC15 database, we apply a random forest classifier to predict the effectiveness of a molecular footprint as a promising drug target.
 
 # Set up environment
-The easist way to setup an environment for this project is to use conda  
-`conda env create -f environment.yml`  
-To activate the environment  
-`conda activate CADD` 
 
-This project was coded during the Life Science Hackathon 2019 in London. 
+## Setup locally
+The easist way to setup an environment for this project is to use [`conda`](https://docs.conda.io/projects/conda/en/latest/user-guide/install/) package manager  
+`conda env create -f environment.yml`  
+To activate the environment `conda activate CADD` 
+
+## Run in binder
+You can run the notebook in binder by following this [link](https://mybinder.org/v2/gh/Leonauna/Educational_CADD/master). Note that binder spawn a new container when you launch the notebook so it can take awhile :)
+
+# Contributors
+This project was coded during the Life Science Hackathon 2019 in London.\
 Contributers are:
-Jonathan Ish-Horowicz
-Tony Yang
-Daniel Jiang 
-Léonie Strömich
- 
+
+[Jonathan Ish-Horowicz](https://github.com/jonathanishhorowicz)\
+[Daniel Jiang](https://github.com/WizardOfAus)\
+[Léonie Strömich](https://github.com/Leonauna)\
+[Tony Yang](https://github.com/tonyyzy) 

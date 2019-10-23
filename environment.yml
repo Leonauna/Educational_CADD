@@ -5,9 +5,11 @@ dependencies:
   - python=3.7
   - rdkit
   - pip
+  - nglview
+  - rise
   - pip:
     - numpy
-    - nglview
     - pandas
     - seaborn
     - jupyter
+    - sklearn
