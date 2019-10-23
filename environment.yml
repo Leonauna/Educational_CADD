@@ -6,6 +6,7 @@ dependencies:
   - rdkit
   - pip
   - nglview
+  - rise
   - pip:
     - numpy
     - pandas

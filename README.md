@@ -4,11 +4,16 @@
 Educational tool to bring Computer Aided Drug Design to the class room. 
 
 # Set up environment
-The easist way to setup an environment for this project is to use conda  
-`conda env create -f environment.yml`  
-To activate the environment  
-`conda activate CADD` 
 
+## Setup locally
+The easist way to setup an environment for this project is to use [`conda`](https://docs.conda.io/projects/conda/en/latest/user-guide/install/) package manager  
+`conda env create -f environment.yml`  
+To activate the environment `conda activate CADD` 
+
+## Run in binder
+You can run the notebook in binder by following this [link](https://mybinder.org/v2/gh/Leonauna/Educational_CADD/master). Note that binder spawn a new container when you launch the notebook so it can take awhile :)
+
+# Contributors
 This project was coded during the Life Science Hackathon 2019 in London.\
 Contributers are:
 
