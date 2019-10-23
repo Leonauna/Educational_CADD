@@ -2,9 +2,9 @@
 [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Leonauna/Educational_CADD/blob/master/CADD_pipeline.ipynb)
 
 # Educational CADD Tutorial
-An educational tutorial to showcase Computer Aided Drug Discovery (CADD) in the classroom. The interactive Jupyter Notebooks are designed for teaching purposes and lead the user through a simplifed virtual molecular compound screening pipeline.
+An educational tutorial to showcase Computer Aided Drug Discovery (CADD) in the classroom. The interactive Jupyter Notebooks are designed for teaching purposes and lead the user through a simplifed virtual compound screening pipeline.
 
-Our tutorial runs through an example of the protein estrogen receptor (1G50) which has a correlated link to breast cancer. Using a data subset from the ZINC15 database, we apply a random forest classifier to predict the effectiveness of a molecular footprint as a promising drug target.
+Our tutorial runs through an example of the protein estrogen receptor (PDB ID: 1G50) which is important in the breast cancer setting. Using a data subset from the ChEMBL database, we apply a random forest predictor to identify new lead compounds from a mock dataset and their potential in binding to estrogen receptor.
 
 ### [Click here for presentation](https://leonauna.github.io/Educational_CADD/)
 
@@ -16,10 +16,10 @@ The easist way to setup an environment for this project is to use [`conda`](http
 To activate the environment `conda activate CADD` 
 
 ## Run in binder
-You can run the notebook in binder by following this [link](https://mybinder.org/v2/gh/Leonauna/Educational_CADD/master). Note that binder spawn a new container when you launch the notebook so it can take awhile :)
+You can run the notebook in binder by following this [link](https://mybinder.org/v2/gh/Leonauna/Educational_CADD/master). Note that binder will spawn a new container when you launch the notebook so it can take a while :)
 
 ## Run in Colab
-You can run the notebook in binder by following this [link](https://colab.research.google.com/github/Leonauna/Educational_CADD/blob/master/CADD_pipeline.ipynb). You may need to install some additional modules when running in colab, you can do so by using '!pip'.
+You can run the notebook in colab by following this [link](https://colab.research.google.com/github/Leonauna/Educational_CADD/blob/master/CADD_pipeline.ipynb). You may need to install some additional modules when running in colab, you can do so by using '!pip'.
 
 # Contributors
 This project was coded during the Life Science Hackathon 2019 in London.\
