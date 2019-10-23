@@ -48,6 +48,16 @@ def show_molecule_3D_structure(mol):
     return nv.show_rdkit(mol)
 
 def Xyfromdf(df, return_y):
+    """Generate X (design matrix) and y (labels) for training a machine learning model from a dataframe of 
+    structures. The structures are encoded using their Morgan fingerprint.
+
+    Args:
+        df: Pandas DataFrame with columns "CMPD_CHEMBLID", "STANDARD_VALUE", "CANONICAL_SMILES"
+        return_y: whether or not to return labels y.
+
+    Returns:
+        2-tuple (X,y) where X is a dataframe and y is a series if return_y is True. Otherwise just X
+    """
     # generate fingeprints: Morgan fingerprint with radius 2
 	fps = [AllChem.GetMorganFingerprintAsBitVect(Chem.MolFromSmiles(smile), 2) for smile in df["CANONICAL_SMILES"]]
 
@@ -57,13 +67,21 @@ def Xyfromdf(df, return_y):
 	    DataStructs.ConvertToNumpyArray(fp, np_fps[i])
 	X = pd.DataFrame(np.array(np_fps))
 	if return_y:
-		y = pd.Series(np.log(df["STANDARD_VALUE"].values))
+		y = np.log(df["STANDARD_VALUE"])
 		assert y.isna().sum()==0
 		return X, y
 	else:
 		return X
 
 def clean_data(df):
+    """Remove missing values and duplicate CHEMBL IDs from a dataframe.
+
+    Args:
+        df: Pandas DataFrame with columns "CMPD_CHEMBLID", "STANDARD_VALUE", "CANONICAL_SMILES"
+
+    Returns:
+        The cleaned dataframe
+    """
 	#df = pd.read_csv("Data/training_data_raw.csv")
 	df = df.dropna() # Remove missing values
 	df = df.drop_duplicates(subset=["CMPD_CHEMBLID"])
@@ -74,12 +92,24 @@ def clean_data(df):
 
 def train_random_forest(
 	training_data,
-	test_size=0.3,
 	seed=123,
 	n_search_iter=10,
 	k=4,
 	n_jobs=multiprocessing.cpu_count()-1):
+    """Train a random forest regression model on training data. The model predicts log(IC50) from smiley
+    structure (encoded using Morgan fingerprints) 
 
+    Args:
+        training_data: a Pandas DataFrame with columns "CMPD_CHEMBLID", "STANDARD_VALUE", "CANONICAL_SMILES"
+        seed: the seed for the pseudo-random number generator
+        n_search_iter: the number of models in the random search cross-validation
+        k: the number of folds in the cross-validation
+        n_jobs: the number of cores used in the cross-validation
+
+    Returns:
+        The best performing random forest regression model according to the cross-validation.
+    """
+    np.random.seed(seed)
 	X, y = Xyfromdf(training_data, True)
 
 	rf = RandomizedSearchCV(
@@ -101,8 +131,18 @@ def train_random_forest(
 def predict_affinity(
 	random_forest,
 	test_data):
+    """Predict the affinity for unseen structures using a trained random forest model.
+
+    Args:
+        random_forest: the random forest model
+        test_data: a dataframe with columns "CMPD_CHEMBLID", "CANONICAL_SMILES"
+
+    Returns:
+        A dataframe with columns "CMPD_CHEMBLID", CANONICAL_SMILES", "predicted_affinity", where
+        "predicted_affinity" is the random forest prediction of the raw IC50 value
+    """
     
 	X = Xyfromdf(test_data, False)
-	test_data["predicted_affinity"] = np.power(2, random_forest.predict(X))
+	test_data["predicted_affinity"] = np.exp(random_forest.predict(X))
 	return test_data.sort_values(by="predicted_affinity", ascending=True)
 
