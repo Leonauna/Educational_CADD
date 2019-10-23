@@ -128,7 +128,7 @@ def train_random_forest(
 
 	return rf.best_estimator_
 
-def predict_affinity(
+def predict_ic50(
 	random_forest,
 	test_data):
     """Predict the affinity for unseen structures using a trained random forest model.
