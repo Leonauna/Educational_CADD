@@ -1,7 +1,9 @@
 [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/Leonauna/Educational_CADD/master)
 
 # Educational_CADD
-Educational tool to bring Computer Aided Drug Design to the class room. 
+An educational tutorial to showcase Computer Aided Drug Discovery in the classroom. The interactive Jupyter Notebooks are designed for teaching purposes and lead the user through a simplifed virtual molecular compound screening pipeline.
+
+Our tutorial runs through an example of the protein estrogen receptor (1G50) which has a correlated link to breast cancer. Using a data subset from the ZINC15 database, we apply a random forest classifier to predict the effectiveness of a molecular footprint as a promising drug target.
 
 # Set up environment
 
@@ -20,7 +22,4 @@ Contributers are:
 [Jonathan Ish-Horowicz](https://github.com/jonathanishhorowicz)\
 [Daniel Jiang](https://github.com/WizardOfAus)\
 [Léonie Strömich](https://github.com/Leonauna)\
-[Tony Yang](https://github.com/tonyyzy)
-
-
- 
+[Tony Yang](https://github.com/tonyyzy) 
