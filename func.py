@@ -6,7 +6,21 @@ from IPython.display import SVG
 from rdkit.Chem import rdDepictor
 import nglview as nv
 
-def draw_pretty_pics(mol):
+def view_estrogen_receptor():
+    """
+    load receptor structure and display with ngl
+    """
+    view = nv.show_pdbid("1g50", default=False)
+    view._set_size("800px","400px")
+    view.add_cartoon(":B or :C")
+    view.add_ball_and_stick("(:B or :C) and EST")
+    view.center(":B or :C")
+    return view
+
+def load_molecule_from_smiles(smiles):
+    return Chem.MolFromSmiles(smiles)
+
+def draw_pretty_2D_pics(mol):
     """
     Given an RDKit mol object, return an SVG picture
     """
@@ -18,7 +32,7 @@ def draw_pretty_pics(mol):
     svg = drawer.GetDrawingText().replace("svg:", "")
     return SVG(svg)
 
-def show_3D(mol):
+def show_molecule_3D_structure(mol):
     """
     Given an RDKit mol object, return an NGLView 3D viewer
     """
