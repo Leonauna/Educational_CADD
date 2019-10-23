@@ -1,7 +1,0 @@
-theme = "revealjs"
-
-[outputFormats.Reveal]
-baseName = "index"
-mediaType = "text/html"
-isHTML = true
-
