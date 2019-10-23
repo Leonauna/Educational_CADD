@@ -17,7 +17,7 @@ To activate the environment `conda activate CADD`
 You can run the notebook in binder by following this [link](https://mybinder.org/v2/gh/Leonauna/Educational_CADD/master). Note that binder spawn a new container when you launch the notebook so it can take awhile :)
 
 ## Run in Colab
-You can run the notebook in binder by following this [link](https://colab.research.google.com/github/Leonauna/Educational_CADD/blob/master/CADD_pipeline.ipynb). 
+You can run the notebook in binder by following this [link](https://colab.research.google.com/github/Leonauna/Educational_CADD/blob/master/CADD_pipeline.ipynb). You may need to install some additional modules when running in colab, you can do so by using '!pip'.
 
 # Contributors
 This project was coded during the Life Science Hackathon 2019 in London.\
