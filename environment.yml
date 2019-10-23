@@ -9,6 +9,6 @@ dependencies:
   - pandas
   - seaborn
   - jupyter
-  - sklearn
+  - scikit-learn
   - rise
   - nglview
