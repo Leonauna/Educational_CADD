@@ -64,7 +64,7 @@ def Xyfromdf(df, return_y):
 	# convert the RDKit explicit vectors into numpy arrays
 	np_fps = [np.zeros((1,)) for fp in fps]
 	for i, fp in enumerate(fps):
-	    DataStructs.ConvertToNumpyArray(fp, np_fps[i])
+        DataStructs.ConvertToNumpyArray(fp, np_fps[i])
 	X = pd.DataFrame(np.array(np_fps))
 	if return_y:
 		y = np.log(df["IC50"])
@@ -97,7 +97,7 @@ def train_random_forest(
 	k=4,
 	n_jobs=multiprocessing.cpu_count()-1):
     """Train a random forest regression model on training data. The model predicts log(IC50) from smiley
-    structure (encoded using Morgan fingerprints) 
+    structure (encoded using Morgan fingerprints).
 
     Args:
         training_data: a Pandas DataFrame with columns "Compound ID", "Structure", "IC50"
