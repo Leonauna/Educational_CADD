@@ -59,19 +59,19 @@ def Xyfromdf(df, return_y):
         2-tuple (X,y) where X is a dataframe and y is a series if return_y is True. Otherwise just X
     """
     # generate fingeprints: Morgan fingerprint with radius 2
-	fps = [AllChem.GetMorganFingerprintAsBitVect(Chem.MolFromSmiles(smile), 2) for smile in df["Structure"]]
+    fps = [AllChem.GetMorganFingerprintAsBitVect(Chem.MolFromSmiles(smile), 2) for smile in df["Structure"]]
 
-	# convert the RDKit explicit vectors into numpy arrays
-	np_fps = [np.zeros((1,)) for fp in fps]
-	for i, fp in enumerate(fps):
-		DataStructs.ConvertToNumpyArray(fp, np_fps[i])
-	X = pd.DataFrame(np.array(np_fps))
-	if return_y:
-		y = np.log(df["IC50"])
-		assert y.isna().sum()==0
-		return X, y
-	else:
-		return X
+    # convert the RDKit explicit vectors into numpy arrays
+    np_fps = [np.zeros((1,)) for fp in fps]
+    for i, fp in enumerate(fps):
+        DataStructs.ConvertToNumpyArray(fp, np_fps[i])
+    X = pd.DataFrame(np.array(np_fps))
+    if return_y:
+        y = np.log(df["IC50"])
+        assert y.isna().sum()==0
+        return X, y
+    else:
+        return X
 
 def clean_data(df):
     """Remove missing values and duplicate CHEMBL IDs from a dataframe.
@@ -82,19 +82,19 @@ def clean_data(df):
     Returns:
         The cleaned dataframe
     """
-	df = df.dropna() # Remove missing values
-	df = df.drop_duplicates(subset=["Compound ID"])
+    df = df.dropna() # Remove missing values
+    df = df.drop_duplicates(subset=["Compound ID"])
 
-	assert np.all([v==0 for k, v in {name : df[name].isna().sum() for name in df.columns}.items()])
+    assert np.all([v==0 for k, v in {name : df[name].isna().sum() for name in df.columns}.items()])
 
-	return df
+    return df
 
 def train_random_forest(
-	training_data,
-	seed=123,
-	n_search_iter=10,
-	k=4,
-	n_jobs=multiprocessing.cpu_count()-1):
+    training_data,
+    seed=123,
+    n_search_iter=10,
+    k=4,
+    n_jobs=multiprocessing.cpu_count()-1):
     """Train a random forest regression model on training data. The model predicts log(IC50) from smiley
     structure (encoded using Morgan fingerprints).
 
@@ -109,27 +109,27 @@ def train_random_forest(
         The best performing random forest regression model according to the cross-validation.
     """
     np.random.seed(seed)
-	X, y = Xyfromdf(training_data, True)
+    X, y = Xyfromdf(training_data, True)
 
-	rf = RandomizedSearchCV(
-	    RandomForestRegressor(),
-	    {
-	        'n_estimators' : np.arange(100, 1000, 100),
-	        'max_features' : ['sqrt', 'log2'],
-	        'max_depth' : [None] + list(range(100))
-	    },
-	    n_iter=n_search_iter,
-	    cv=k,
-	    random_state=seed,
-	    n_jobs=n_jobs,
-	    verbose=0
-	).fit(X, y)
+    rf = RandomizedSearchCV(
+        RandomForestRegressor(),
+        {
+            'n_estimators' : np.arange(100, 1000, 100),
+            'max_features' : ['sqrt', 'log2'],
+            'max_depth' : [None] + list(range(100))
+        },
+        n_iter=n_search_iter,
+        cv=k,
+        random_state=seed,
+        n_jobs=n_jobs,
+        verbose=0
+    ).fit(X, y)
 
-	return rf.best_estimator_
+    return rf.best_estimator_
 
 def predict_ic50(
-	random_forest,
-	test_data):
+    random_forest,
+    test_data):
     """Predict the affinity for unseen structures using a trained random forest model.
 
     Args:
@@ -141,7 +141,7 @@ def predict_ic50(
         "predicted_affinity" is the random forest prediction of the raw IC50 value
     """
     
-	X = Xyfromdf(test_data, False)
-	test_data["Predicted IC50"] = np.exp(random_forest.predict(X))
-	return test_data.sort_values(by="Predicted IC50", ascending=True)
+    X = Xyfromdf(test_data, False)
+    test_data["Predicted IC50"] = np.exp(random_forest.predict(X))
+    return test_data.sort_values(by="Predicted IC50", ascending=True)
 
