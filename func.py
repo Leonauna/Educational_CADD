@@ -103,6 +103,6 @@ def predict_affinity(
 	test_data):
     
 	X = Xyfromdf(test_data, False)
-	test_data["predicted_affinity"] = np.power(2, random_forest.predict(X))
+	test_data["predicted_affinity"] = np.exp(random_forest.predict(X))
 	return test_data.sort_values(by="predicted_affinity", ascending=True)
 
