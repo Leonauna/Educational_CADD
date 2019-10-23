@@ -1,4 +1,5 @@
 [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/Leonauna/Educational_CADD/master)
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Leonauna/Educational_CADD/blob/master/CADD_pipeline.ipynb)
 
 # Educational CADD Tutorial
 An educational tutorial to showcase Computer Aided Drug Discovery (CADD) in the classroom. The interactive Jupyter Notebooks are designed for teaching purposes and lead the user through a simplifed virtual molecular compound screening pipeline.
@@ -14,6 +15,9 @@ To activate the environment `conda activate CADD`
 
 ## Run in binder
 You can run the notebook in binder by following this [link](https://mybinder.org/v2/gh/Leonauna/Educational_CADD/master). Note that binder spawn a new container when you launch the notebook so it can take awhile :)
+
+## Run in Colab
+You can run the notebook in binder by following this [link](https://colab.research.google.com/github/Leonauna/Educational_CADD/blob/master/CADD_pipeline.ipynb). 
 
 # Contributors
 This project was coded during the Life Science Hackathon 2019 in London.\
