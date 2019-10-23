@@ -64,7 +64,7 @@ def Xyfromdf(df, return_y):
 	# convert the RDKit explicit vectors into numpy arrays
 	np_fps = [np.zeros((1,)) for fp in fps]
 	for i, fp in enumerate(fps):
-        DataStructs.ConvertToNumpyArray(fp, np_fps[i])
+		DataStructs.ConvertToNumpyArray(fp, np_fps[i])
 	X = pd.DataFrame(np.array(np_fps))
 	if return_y:
 		y = np.log(df["IC50"])
@@ -82,7 +82,6 @@ def clean_data(df):
     Returns:
         The cleaned dataframe
     """
-	#df = pd.read_csv("Data/training_data_raw.csv")
 	df = df.dropna() # Remove missing values
 	df = df.drop_duplicates(subset=["Compound ID"])
 
